@@ -5,6 +5,15 @@ users = [
     {username: "nidhi", password: "nidhi1234"},
     {username: "diksha", password: "diksha1234"},
 ]
+
+def authenticator(users,username,password)
+    users.each do |user|
+        if user[:username] == username && user[:password] == password
+            return user
+        end
+    end
+    "Invalid credentials"
+end
 puts "Welcome to my authenticator app!"
 32.times {print "="}
 puts
@@ -14,15 +23,16 @@ while attempts < 4
     username = gets.chomp
     print "Enter Your Password: "
     password = gets.chomp
-    users.each do |user|
-        if user[:username] == username && user[:password] == password
-            puts "Welcome #{user}"
-            break
-        end
+    user_auth = authenticator(users,username,password)
+    if user_auth == "Invalid credentials"
+        puts user_auth
+    else
+        puts "Welcome #{user_auth}"
+        puts "Thank you for visiting my portal #{user_auth[:username].capitalize}"
     end
-    puts "Invalid credentials"
     puts "press n to quit and anyother key to continue..."
     stop = gets.chomp
     break if stop == "n"
     attempts += 1
 end
+puts "You exceeded the limit..."
